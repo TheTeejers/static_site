@@ -1,0 +1,57 @@
+body {
+  text-align: center;
+  max-width: 80%;
+  padding: 20px 10%;
+}
+
+.navbar {
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 80%;
+}
+
+
+.nav-a, .nav-img {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+}
+
+.navbar .nav-a:hover {
+    background: #ddd;
+    color: black;
+}
+
+.title {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+p {
+  max-width: 40%;
+  padding: 2px 30%;
+}
+
+ul  {
+ padding-left:0;
+}
+
+ul li  {
+ list-style-position:inside
+}
+
+date {
+  float: right;
+}
+
+a {
+  color: #000000;
+}
+
+#comments{
+  overflow-wrap: break-word;
+}

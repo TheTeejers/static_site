@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Fenix Static Site</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/favicons/android-icon-192x192.png">
+
+  </head>
+
+  <body>
+    <header>
+
+      <nav class="navbar">
+        <a class='nav-a'href="https://preview.fenixwebserver.com/" target="blank"><img class='nav-img'src="assets/favicons/favicon-16x16@2x.png" alt="Fenix Logo"></a>
+        <a class='nav-a'href='#'>Title</a>
+        <a class='nav-a'href='#import-own'>Import Your Own</a>
+        <a class='nav-a'href='#comment-section'>Comments</a>
+      </nav>
+    </header>
+
+    <div class="title" id='title'>
+      <h1>Fenix Web Server Resource</h1>
+    </div>
+
+    <div class="import-section">
+
+      <div class="import-item">
+        <h2> Learning React.js </h2>
+        <p>React is a JavaScript library, and so we’ll assume you have a basic understanding of the JavaScript language. If you don’t feel very confident, we recommend refreshing your JavaScript knowledge so you can follow along more easily.</p>
+        <p>We also use some of the ES6 syntax in the examples. We try to use it sparingly because it’s still relatively new, but we encourage you to get familiar with arrow functions, classes, template literals, let, and const statements. You can use the Babel REPL to check what ES6 code compiles to.</p>
+        <a href='https://goo.gl/LEXfWh' target='blank'><img src="https://camo.githubusercontent.com/0010e6d3a1ff4817878aee1d63dde93c9e6210d8/68747470733a2f2f63646e2e617574686f722e696f2f66656e69782f736d616c6c62616467652e737667" alt="Deploy on Fenix" data-canonical-src="https://cdn.author.io/fenix/smallbadge.svg" style="max-width:100%;"></a>
+      </div>
+
+      <div class="import-item">
+        <h2> Learning Vue.js </h2>
+        <p>Vue (pronounced /vjuː/, like view) is a progressive framework for building user interfaces. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.</p>
+        <a href='https://goo.gl/JwrSWm' target='blank'><img src="https://camo.githubusercontent.com/0010e6d3a1ff4817878aee1d63dde93c9e6210d8/68747470733a2f2f63646e2e617574686f722e696f2f66656e69782f736d616c6c62616467652e737667" alt="Deploy on Fenix" data-canonical-src="https://cdn.author.io/fenix/smallbadge.svg" style="max-width:100%;"></a>
+      </div>
+
+      <div class="import-item">
+        <h2> Funny Text Stuff </h2>
+        <p>Create funny and crazy moving texts in a simple way.</p>
+        <a href='https://goo.gl/Qdv79E' target='blank'><img src="https://camo.githubusercontent.com/0010e6d3a1ff4817878aee1d63dde93c9e6210d8/68747470733a2f2f63646e2e617574686f722e696f2f66656e69782f736d616c6c62616467652e737667" alt="Deploy on Fenix" data-canonical-src="https://cdn.author.io/fenix/smallbadge.svg" style="max-width:100%;"></a>
+      </div>
+
+      <div class="import-item" id='import-own'>
+        <h2> Have Your Own Project You Would Like To Import? </h2>
+        <p>Fell free to do so!</p>
+        <div class="information-section">
+          <h4>What can you import into Fenix?</h4>
+          <ul>
+            <li>GitHub</li>
+            <li>Bitbucket</li>
+            <li>CodePen</li>
+            <li>Custom Zip</li>
+          </ul>
+        </div>
+        <a href='https://import.fenixwebserver.com/wizard/' target='blank'><img src="https://camo.githubusercontent.com/0010e6d3a1ff4817878aee1d63dde93c9e6210d8/68747470733a2f2f63646e2e617574686f722e696f2f66656e69782f736d616c6c62616467652e737667" alt="Deploy on Fenix" data-canonical-src="https://cdn.author.io/fenix/smallbadge.svg" style="max-width:100%;"></a>
+      </div>
+    </div>
+
+
+
+    <div class="get-fenix-section">
+      <div class="get-fenix">
+        <h3>New To Fenix?</h3><h3>Download the app <a class="get-fenix-link" target="blank" href="https://preview.fenixwebserver.com/">HERE!</a> </h3>
+      </div>
+    </div>
+
+    <div class="comment-section" id='comment-section'>
+      <div class="comment-box">
+        <div class="comment-form">
+          <div class="header"><h2>Add Your Comment</h2></div>
+          <form>
+            <div>
+              <input type="text" id="name" placeholder="Name" required/>
+            </div>
+            <div>
+              <input type="text" id="email" placeholder="Email (optional)" />
+            </div>
+            <div>
+              <textarea id="comment" rows="10" cols="100" placeholder="Comment"></textarea>
+            </div>
+            <button type="submit">Add Your Comment</button>
+          </form>
+        </div>
+        <div>
+          <h4 class="header">Comments</h4>
+          <p id="comments"></p>
+        </div>
+      </div>
+      <div id="foot">
+        <p>Fenix Web Server is an Author.io product by Ecor Ventures.</p>
+        <p>Copyright © 2017 <a href="http://ecorventures.com/">Ecor Ventures LLC.</a>  All rights reserved.</p>
+      </div>
+    </div>
+    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+    <script src="scripts/comments.js"></script>
+  </body>
+</html>
