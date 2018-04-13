@@ -1,9 +1,12 @@
 {
   "name": "ngn",
   "version": "2.0.0",
-  "main": "index.js",
+  "main": "images.js",
   "description": "A JavaScript-based systems and software authoring library.",
   "scripts": {
     "test": "gulp test"
+  },
+  "dependencies": {
+    "unsplash-js": "^4.8.0"
   }
 }

@@ -21,13 +21,14 @@ function postComment(e) {
   let email = document.getElementById("email").value;
   let comment = document.getElementById("comment").value;
 
-  if (name && email && comment) {
+  if (name && comment) {
     ref.push({
       name: name,
       email: email,
       comment: comment,
       time: timeStamp()
     });
+    console.log("button clicked")
   }
 
   document.getElementById("name").value = '';

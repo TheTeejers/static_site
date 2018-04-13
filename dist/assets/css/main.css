@@ -55,3 +55,43 @@ a {
 #comments{
   overflow-wrap: break-word;
 }
+
+.fenixProject.form.section {
+  margin-top: 5em;
+}
+
+pre {
+  border: 1px solid #999999;
+  border-radius: 3px;
+  padding: 2em;
+  background-color: #efefef;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 30vw;
+  font-family: Arial;
+  background-color: #ececec;
+  padding: .3em;
+}
+
+form * {
+  margin: .3em;
+}
+
+button {
+  background-color: #333333;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#here {
+  margin-top: 5em;
+}
+
+/* .hidden {
+  display: none;
+} */
