@@ -80,6 +80,10 @@ form * {
   margin: .3em;
 }
 
+input[type=number]::-webkit-inner-spin-button {
+   opacity: 1;
+}
+
 button {
   background-color: #333333;
   color: #ffffff;
