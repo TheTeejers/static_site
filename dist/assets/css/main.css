@@ -1,5 +1,6 @@
 body {
   text-align: center;
+  align-items: center;
   max-width: 80%;
   padding: 20px 10%;
 }
@@ -9,6 +10,8 @@ body {
     position: fixed;
     top: 0;
     width: 80%;
+    border-radius: 20px;
+    
 }
 
 
@@ -24,6 +27,7 @@ body {
 .navbar .nav-a:hover {
     background: #ddd;
     color: black;
+    border-radius: 20px;
 }
 
 .title {
