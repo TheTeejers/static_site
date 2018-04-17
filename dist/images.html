@@ -25,15 +25,32 @@
       </nav>
     </header>
 
-    <div class="image-search-section">
+    <div class="image-search-box">
       <p>Search the UnSplash Image Database</p>
-      <form class="image-search-form">
-        <p>Search UnSplash for high quality images</p>
-        <input  type="search" id="unsplash-search-input" placeholder="Search UnSplash">
-        <p>Amount of images returned (max = 30)</p>
-        <input  type="number" id="unsplash-search-number" min=1 max=30 value=10 style='width: 25px'>
-        <button value="hello" type="button" id = "unsplashButton" name="unsplashButton">Search</button>
-      </form>
+      <div class="forms-search">
+        <form id="image-search-form">
+          <p>Search UnSplash for high quality images</p>
+          <input  onkeypress="handleKeyPress(event)" type="search" id="unsplash-images-search-input" placeholder="Search UnSplash Images">
+          <p>Amount of images returned (max = 30)</p>
+          <input  type="number" id="unsplash-images-search-number" min=1 max=30 value=10 style='width: 25px'>
+          <button onkeypress="handleKeyPress(event)" value="hello" type="button" id = "unsplashButtonImages" name="unsplashButtonImages">Image Search</button>
+
+
+        </form>
+        <form id="image-search-form">
+          <p>Get UnSplashes Curated Images</p>
+          <p>Amount of images returned (max = 30)</p>
+          <input  type="number" id="unsplash-curated-search-number" min=1 max=30 value=10 style='width: 25px'>
+
+          <select id='unsplash-curated-search-order'>
+            <option>latest</option>
+            <option>oldest</option>
+            <option>popular</option>
+          </select>
+          <button onkeypress="handleKeyPress(event)" value="hello" type="button" id = "unsplashButtonCurated" name="unsplashButtonCurated">Curated Search</button>
+        </form>
+      </div>
+
     </div>
 
     <div id="images-posting-section">
@@ -43,16 +60,11 @@
     <div id="imageSection">
       <div class="postTitles posts"></div>
     </div>
-    <div class="get-fenix-section">
-      <div class="get-fenix">
-        <h3>New To Fenix?</h3><h3>Download the app <a class="get-fenix-link" target="blank" href="https://preview.fenixwebserver.com/">HERE!</a> </h3>
-      </div>
-    </div>
 
-    <div id="foot">
-      <p>Fenix Web Server is an Author.io product by Ecor Ventures.</p>
-      <p>Copyright © 2017 <a href="http://ecorventures.com/">Ecor Ventures LLC.</a>  All rights reserved.</p>
-    </div>
+
+    <footer id="foot">
+      <p>Fenix Web Server is an Author.io product by Ecor Ventures. Copyright © 2017 <a href="http://ecorventures.com/">Ecor Ventures LLC.</a>  All rights reserved.</p>
+    </footer>
 
 
       <script src="scripts/images.js"></script>
