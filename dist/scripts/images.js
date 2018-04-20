@@ -5,12 +5,6 @@ var unsplashImageLinks = document.getElementById('imageLinks');
 document.getElementById("unsplashButtonImages").addEventListener('click', makeRequestImages);
 document.getElementById("unsplashButtonCurated").addEventListener('click', makeRequestCurated);
 
-function handleKeyPress(e){
- var key=e.keyCode || e.which;
-  if (key==13){
-       }
-}
-
 function makeRequestImages() {
   var searchInput = document.getElementById('unsplash-images-search-input').value;
   var numberPerPage = document.getElementById('unsplash-images-search-number').value;
@@ -23,6 +17,7 @@ function makeRequestImages() {
       NGN.DOM.destroy('.imageSearchResults');
       NGN.DOM.destroy('.imageResultLinks');
       var json = JSON.parse(response.response);
+      console.log(json);
       for (var i = 0; i < json.length; i++) {
         var userLink = json[i].user.links.html;
         var userProfilePictureSmall = json[i].user.profile_image.small;
@@ -33,9 +28,10 @@ function makeRequestImages() {
         var imageURLSmall = json[i].urls.small;
         var imageURLThumb = json[i].urls.thumb;
         var imageID = json[i].id;
-        unsplashImage.innerHTML += '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '</p><p><img src= ' + userProfilePictureSmall + '/></a></p><p> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p> <img src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div><hr></div>';
-        // unsplashImage.innerHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
-        // unsplashImage.innerHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
+        console.log(json[i]);
+        unsplashImage.insertAdjacentHTML('afterend', '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '</p><p><img src= ' + userProfilePictureSmall + '/></a></p><p> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p> <img src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div><hr></div>');
+        // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
+        // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
       }
 
     })
@@ -58,9 +54,9 @@ function makeRequestImages() {
         var imageID = json[i].id;
         console.log(imageID);
 
-        unsplashImage.innerHTML += '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '<img src= ' + userProfilePictureSmall + '/></a> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p><img id= ' + imageURLSmall + ' src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank >Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div></div>'
-        // unsplashImage.innerHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank >Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
-        // unsplashImage.innerHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
+        unsplashImage.insertAdjacentHTML('afterend', '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '<img src= ' + userProfilePictureSmall + '/></a> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p><img id= ' + imageURLSmall + ' src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank >Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div></div>')
+        // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank >Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
+        // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
 
         console.log(json[i])
       }
@@ -94,9 +90,9 @@ function makeRequestCurated() {
       var imageURLThumb = json[i].urls.thumb;
       var imageID = json[i].id;
 
-      unsplashImage.innerHTML += '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '<img src= ' + userProfilePictureSmall + '/></a> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p> <img src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div></div>'
-      // unsplashImage.innerHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
-      // unsplashImage.innerHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
+  unsplashImage.insertAdjacentHTML('afterend', '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '<img src= ' + userProfilePictureSmall + '/></a> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p><img id= ' + imageURLSmall + ' src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank >Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div></div>')
+      // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
+      // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
 
       console.log(json[i])
       function giveCreditAlert() {
