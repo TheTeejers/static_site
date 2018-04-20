@@ -30,9 +30,9 @@
       <div class="forms-search">
         <form id="image-search-form">
           <p>Search UnSplash for high quality images</p>
-          <input type="search" id="unsplash-images-search-input" placeholder="Search UnSplash Images">
+          <input type="search" id="unsplash-images-search-input" placeholder="Search UnSplash Images" onkeypress="imageSearchReturn(event)">
           <p>Amount of images returned (max = 30)</p>
-          <input  type="number" id="unsplash-images-search-number" min=1 max=30 value=10 style='width: 25px'>
+          <input type="number" id="unsplash-images-search-number" min=1 max=30 value=10 style='width: 5em' onkeypress="imageSearchReturn(event)">
           <button value="hello" type="button" id = "unsplashButtonImages" name="unsplashButtonImages">Image Search</button>
 
 
@@ -40,14 +40,14 @@
         <form id="image-search-form">
           <p>Get UnSplashes Curated Images</p>
           <p>Amount of images returned (max = 30)</p>
-          <input  type="number" id="unsplash-curated-search-number" min=1 max=30 value=10 style='width: 25px'>
+          <input  type="number" id="unsplash-curated-search-number" min=1 max=30 value=10 style='width: 5em' onkeypress="imageCuratedReturn(event)">
 
           <select id='unsplash-curated-search-order'>
             <option>latest</option>
             <option>oldest</option>
             <option>popular</option>
           </select>
-          <button onkeypress="handleKeyPress(event)" value="hello" type="button" id = "unsplashButtonCurated" name="unsplashButtonCurated">Curated Search</button>
+          <button value="hello" type="button" id = "unsplashButtonCurated" name="unsplashButtonCurated">Curated Search</button>
         </form>
       </div>
 
