@@ -1,17 +1,37 @@
 const YOUR_ACCESS_KEY = 'ee149b09b89a06de5d016c7bf0ead7971a1c667c2969a2535f9065b64ced909f';
 var unsplashImage = document.getElementById('image');
 var unsplashImageLinks = document.getElementById('imageLinks');
+var zipImageList = document.getElementById('images-to-be-zipped');
+
+
+
+let searchInput = document.getElementById('unsplash-images-search-input')
+let numberPerPage = document.getElementById('unsplash-images-search-number').value
+let endpointRandom = 'https://api.unsplash.com/photos/random/?client_id=' + YOUR_ACCESS_KEY + '&count=' + numberPerPage
+let endpointSearch = 'https://api.unsplash.com/search/photos/?client_id=' + YOUR_ACCESS_KEY + '&query=' + searchInput.value + '&per_page=' + numberPerPage + ''
+let id = `image_${image.id}`
+
+
+
+
+
+var imageZipListArray = ["red", "blue", "red", "green"];
+var cleanedUpImageZipListArray = [];
+var imageZipList = document.getElementById('images-to-be-zipped');
 
 document.getElementById("unsplashButtonImages").addEventListener('click', makeRequestImages);
-document.getElementById("unsplashButtonCurated").addEventListener('click', makeRequestCurated);
-// document.getElementById("unsplash-images-search-input").onkeypress = makeRequestImages;
-function imageSearchReturn(e){
+// document.getElementById("unsplashButtonCurated").addEventListener('click', makeRequestCurated);
+
+// console.log(imageZipListArray, 'before button click');
+
+
+function imageSearchReturn(e) {
     var keycode = (e.keyCode ? e.keyCode : e.which);
     if (keycode == '13') {
         makeRequestImages();
     }
 }
-function imageCuratedReturn(e){
+function imageCuratedReturn(e) {
     var keycode = (e.keyCode ? e.keyCode : e.which);
     if (keycode == '13') {
         makeRequestCurated();
@@ -19,98 +39,183 @@ function imageCuratedReturn(e){
 }
 
 
-function makeRequestImages() {
-  var searchInput = document.getElementById('unsplash-images-search-input').value;
-  var numberPerPage = document.getElementById('unsplash-images-search-number').value;
-  console.log(document.getElementById('unsplash-images-search-input').value, 'input value');
-  console.log(document.getElementById('unsplash-images-search-input').value, 'number value');
-
-  if (document.getElementById('unsplash-images-search-input').value === ''){
-    NGN.NET.get('https://api.unsplash.com/photos/random/?client_id=' + YOUR_ACCESS_KEY + '&count=' + numberPerPage, (response) => {
-      console.log(response)
-      NGN.DOM.destroy('.imageSearchResults');
-      NGN.DOM.destroy('.imageResultLinks');
-      var json = JSON.parse(response.response);
-      console.log(json);
-      for (var i = 0; i < json.length; i++) {
-        var userLink = json[i].user.links.html;
-        var userProfilePictureSmall = json[i].user.profile_image.small;
-        var userName = json[i].user.name;
-        var imageURLFull = json[i].urls.full;
-        var imageURLRaw = json[i].urls.raw;
-        var imageURLRegular = json[i].urls.regular;
-        var imageURLSmall = json[i].urls.small;
-        var imageURLThumb = json[i].urls.thumb;
-        var imageID = json[i].id;
-        console.log(json[i]);
-        unsplashImage.insertAdjacentHTML('beforeend', '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '</p><p><img src= ' + userProfilePictureSmall + '/></a></p><p> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p> <img src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div><hr></div>');
-        // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
-        // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
-      }
-
-    })
-  } else {
-    NGN.NET.get('https://api.unsplash.com/search/photos/?client_id=' + YOUR_ACCESS_KEY + '&query=' + searchInput + '&per_page=' + numberPerPage + '', (response) => {
-      console.log(response)
-      NGN.DOM.destroy('.imageSearchResults');
-      NGN.DOM.destroy('.imageResultLinks');
-      var json = JSON.parse(response.response).results;
-      console.log(json);
-      for (var i = 0; i < json.length; i++) {
-        var userLink = json[i].user.links.html;
-        var userProfilePictureSmall = json[i].user.profile_image.small;
-        var userName = json[i].user.name;
-        var imageURLFull = json[i].urls.full;
-        var imageURLRaw = json[i].urls.raw;
-        var imageURLRegular = json[i].urls.regular;
-        var imageURLSmall = json[i].urls.small;
-        var imageURLThumb = json[i].urls.thumb;
-        var imageID = json[i].id;
-        console.log(imageID);
-
-        unsplashImage.insertAdjacentHTML('beforeend', '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '<img src= ' + userProfilePictureSmall + '/></a> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p><img id= ' + imageURLSmall + ' src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank >Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div></div>')
-        // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank >Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
-        // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
-
-        console.log(json[i])
-      }
-    })
+function populateImageZipList() {
+  for (var i = 0; i < imageZipListArray.length; i++) {
+    imageZipList.insertAdjacentHTML('beforeend', '<li><img src=' + imageZipListArray + '/></li>');
+    console.log("this is it", imageZipListArray[i])
   }
 }
 
-function makeRequestCurated() {
+const ImagesStore = new NGN.DATA.Store({
+  model: ImageModel
+})
 
-  var numberPerPage = document.getElementById('unsplash-curated-search-number').value;
-  var orderedBy = document.getElementById('unsplash-curated-search-order').value;
+ImagesStore.on('clear', () => {
+      imageSearchResult.innerHtml = ''
+      console.log("firing");
+})
 
-  console.log(document.getElementById('unsplash-curated-search-number').value, 'number value');
-  console.log(document.getElementById('unsplash-curated-search-order').value, 'curated label');
+ImagesStore.on('load', () => {
+  if (!searchInput.value) {
+    makeRequestImages(ImagesStore.data)
+  }
+})
+
+function makeRequestImages (images) {
 
 
-  NGN.NET.get('https://api.unsplash.com/photos/curated/?client_id=' + YOUR_ACCESS_KEY + '&per_page=' + numberPerPage + '&order_by=' + orderedBy, (response) => {
-    console.log(response)
-    NGN.DOM.destroy('.imageSearchResults');
-    NGN.DOM.destroy('.imageResultLinks');
-    var json = JSON.parse(response.response);
-    console.log(json.length);
-    for (var i = 0; i < json.length; i++) {
-      var userLink = json[i].user.links.html;
-      var userProfilePictureSmall = json[i].user.profile_image.small;
-      var userName = json[i].user.name;
-      var imageURLFull = json[i].urls.full;
-      var imageURLRaw = json[i].urls.raw;
-      var imageURLRegular = json[i].urls.regular;
-      var imageURLSmall = json[i].urls.small;
-      var imageURLThumb = json[i].urls.thumb;
-      var imageID = json[i].id;
 
-      unsplashImage.insertAdjacentHTML('beforeend', '<div class="imageSearchResults"><hr><p class=imageCredit>Photo by <a href=' + userLink + '?utm_source=hackathon_resources&utm_medium=referral target=_blank>' + userName + '<img src= ' + userProfilePictureSmall + '/></a> on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target=blank>Unsplash</a></p><img id= ' + imageURLSmall + ' src =' + imageURLSmall + '/><div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank >Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div><div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div></div>')
-      // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a href = ' + imageURLFull + ' target=blank>Full</a> | <a href = ' + imageURLRaw + ' target=blank>Raw</a> | <a href = ' + imageURLRegular + ' target=blank>Regular</a> | <a href = ' + imageURLSmall + ' target=blank>Small</a> | <a href = ' + imageURLThumb + ' target=blank>Thumb</a></div>'
-      // unsplashImage.insertAdjacentHTML += '<div class="imageResultLinks"> <a title="Download photo" href="https://unsplash.com/photos/' + imageID + '/download?force=true" rel="nofollow" download="" target="_blank"><button>Download</button></a></div>'
 
-      console.log(json[i])
+        let tasks = new NGN.Tasks()
+        ImagesStore.data.forEach(image => {
+
+
+          tasks.add(`Render image ${image.id}`, next => {
+
+            unsplashImage.insertAdjacentHTML('beforeend', `<div id="image_${image.id}" class="imageSearchResults">
+              <hr />
+              <p class="imageCredit">
+                Photo by <a href="${image.user.links.html}?utm_source=hackathon_resources&utm_medium=referral" target="_blank">${image.user.name}</a>
+              </p>
+              <p>
+                <img src="${image.user.profile_image.small}"/>
+              </p>
+              <p>
+                on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target="_blank">Unsplash</a>
+              </p>
+              <img src="${image.urls.small}" />
+              <div>
+                <a title="Download photo" href="https://unsplash.com/photos/${image.id}/download?force=true">
+                  <button>Download</button>
+                </a>
+                <button class="addToZipFileButton">Add to .Zip File</button>
+              </div>
+              <hr />
+            </div>`)
+            let id = `image_${image.id}`
+            NGN.DOM.guaranteeDirectChild(unsplashImage, `#${id}`, () => {
+              let element = document.getElementById(id)
+              let zipAddButton = element.querySelector('.addToZipFileButton')
+
+              zipAddButton.addEventListener('click', () => {
+
+                imageZipListArray.push(image.urls.thumb);
+                // for(var i = imageZipListArray.length-1; i--;){
+                // 	if (imageZipListArray[i] === "red") imageZipListArray.splice(i, 1);
+                // }
+                zipImageList.insertAdjacentHTML('beforeend', `<hr><li id="zipImage_${image.id}" class="zipImageListItem"><img src=${image.urls.thumb}/>
+                  <button id="removeFromZipList_${image.id}" class="removeFromZipFileButton">Remove</button>
+                  <hr>
+                </li>`);
+                console.log("Current Image Array");
+                console.log(imageZipListArray);
+                console.log(images);
+                // NGN.DOM.guaranteeDirectChild(unsplashImage, `#${id}`, () => {
+                //
+                //   let element = document.getElementById(id)
+                //   let button = element.querySelector('.removeFromZipFileButton')
+                //   button.addEventListener('click', () => {
+                //     for(var i = imageZipListArray.length-1; i--;){
+                //       if (imageZipListArray[i] === "red") imageZipListArray.splice(i, 1);
+                //     }
+                //     console.log("Current Image Array")
+                //     console.log(imageZipListArray);
+                //     console.log(images)
+                //   })
+                // })
+              })
+              next()
+            })
+
+          })
+        })
+        tasks.on('complete', () => {
+          console.log('Initial Image Array:')
+          console.log(imageZipListArray)
+          // Do the stuff you want to do next now that imageZipListArray is populated
+        })
+        tasks.run(true)
+
+
+    // } else {
+    //
+    //
+    //     let tasks = new NGN.Tasks()
+    //     ImagesStore.data.forEach(image => {
+    //       tasks.add(`Render image ${image.id}`, next => {
+    //
+    //         unsplashImage.insertAdjacentHTML('beforeend', `<div id="image_${image.id}" class="imageSearchResults">
+    //           <hr />
+    //           <p class="imageCredit">
+    //             Photo by <a href="${image.user.links.html}?utm_source=hackathon_resources&utm_medium=referral" target="_blank">${image.user.name}</a>
+    //           </p>
+    //           <p>
+    //             <img src="${image.user.profile_image.small}"/>
+    //           </p>
+    //           <p>
+    //             on <a href="https://unsplash.com/?utm_source=hackathon_resources&utm_medium=referral" target="_blank">Unsplash</a>
+    //           </p>
+    //           <img src="${image.urls.small}" />
+    //           <div>
+    //             <a title="Download photo" href="https://unsplash.com/photos/${image.id}/download?force=true">
+    //               <button>Download</button>
+    //             </a>
+    //             <button class="addToZipFileButton">Add to .Zip File</button>
+    //           </div>
+    //           <hr />
+    //         </div>`)
+    //         let id = `image_${image.id}`
+    //         NGN.DOM.guaranteeDirectChild(unsplashImage, `#${id}`, () => {
+    //           let element = document.getElementById(id)
+    //           let button = element.querySelector('.addToZipFileButton')
+    //           button.addEventListener('click', () => {
+    //
+    //
+    //             imageZipListArray.push(image.urls.thumb)
+    //             zipImageList.insertAdjacentHTML('beforeend', `<hr><li id="zipImage_${image.id}" class="zipImageListItem"><img src=${image.urls.thumb}/>
+    //               <button id="removeFromZipList_${image.id}" class="removeFromZipFileButton">Remove</button>
+    //               <hr>
+    //             </li>`);
+    //             console.log("Current Image Array")
+    //             console.log(imageZipListArray);
+    //             console.log(images)
+    //           })
+    //           next()
+    //         })
+    //       })
+    //     })
+    //     tasks.on('complete', () => {
+    //       console.log('Initial Image Array:')
+    //       console.log(imageZipListArray)
+    //
+    //       // Do the stuff you want to do next now that imageZipListArray is populated
+    //     })
+    //     tasks.run(true)
+    //
+    // }
+
+
+  let searchInput = document.getElementById('unsplash-images-search-input')
+  let numberPerPage = document.getElementById('unsplash-images-search-number').value
+  let endpointRandom = 'https://api.unsplash.com/photos/random/?client_id=' + YOUR_ACCESS_KEY + '&count=' + numberPerPage
+  let endpointSearch = 'https://api.unsplash.com/search/photos/?client_id=' + YOUR_ACCESS_KEY + '&query=' + searchInput.value + '&per_page=' + numberPerPage + ''
+  let id = `image_${image.id}`
+  NGN.NET.json(endpointRandom, (err, images) => {
+
+    if (err) {
+      throw err
     }
 
-  })
+    ImagesStore.load(images)
 
+
+  })
+  NGN.NET.json(endpointSearch, (err, images) => {
+    if (err) {
+      throw err
+    }
+
+
+    ImagesStore.load(images)
+  })
 }

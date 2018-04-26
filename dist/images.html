@@ -28,34 +28,40 @@
     <div class="image-search-box">
       <p>Search the UnSplash Image Database</p>
       <div class="forms-search">
+
         <form id="image-search-form">
           <p>Search UnSplash for high quality images</p>
-          <input type="search" id="unsplash-images-search-input" placeholder="Search UnSplash Images" onkeypress="imageSearchReturn(event)">
+          <input type="search" id="unsplash-images-search-input" placeholder="Search UnSplash Images">
+          <!-- <input type="search" id="unsplash-images-search-input" placeholder="Search UnSplash Images" onkeypress="imageSearchReturn(event)"> -->
           <p>Amount of images returned (max = 30)</p>
           <input type="number" id="unsplash-images-search-number" min=1 max=30 value=10 style='width: 5em' onkeypress="imageSearchReturn(event)">
+
           <button value="hello" type="button" id = "unsplashButtonImages" name="unsplashButtonImages">Image Search</button>
-
-
         </form>
+
         <form id="image-search-form">
           <p>Get UnSplashes Curated Images</p>
           <p>Amount of images returned (max = 30)</p>
           <input  type="number" id="unsplash-curated-search-number" min=1 max=30 value=10 style='width: 5em' onkeypress="imageCuratedReturn(event)">
-
-          <select id='unsplash-curated-search-order'>
+          <select id='unsplash-curated-search-order' onkeypress="imageCuratedReturn(event)">
             <option>latest</option>
             <option>oldest</option>
             <option>popular</option>
           </select>
           <button value="hello" type="button" id = "unsplashButtonCurated" name="unsplashButtonCurated">Curated Search</button>
         </form>
-      </div>
+        <div class="imagesSavedArea">
+          <p>Items To Be Saved In .Zip File</p>
+          <ul id="images-to-be-zipped">
 
+          </ul>
+
+        </div>
+      </div>
     </div>
 
     <div id="images-posting-section">
-      <div id="image"></div>
-      <div id="one"></div>
+      <div id="imageDisplayArea"></div>
 
       <div id="imageLinks"></div>
 
@@ -69,7 +75,11 @@
     </footer>
 
 
-      <script src="scripts/images.js"></script>
+    <script src="scripts/jszip.min.js"></script>
+    <script src="scripts/image_model.js"></script>
+    <script src="scripts/imagesNEW.js"></script>
+    <!-- <script src="scripts/imagesOLD.js"></script> -->
+
 
   </body>
 </html>
