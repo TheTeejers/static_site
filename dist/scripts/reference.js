@@ -35,46 +35,10 @@ const CartStore = new NGN.DATA.Store({
   model: ImageModel
 })
 
-CartStore.on('record.create', (record) => {
-  console.log(record.data);
-  console.log(record.links.actual_download);
-  renderZipImage(record);
-  localStorage.setItem('stored_images', getCartData());
-})
-
-CartStore.on('record.delete', (record) => {
-  console.log(record.data);
-  // renderZipImage(record);
-
-  unRenderZipImage(record)
-  localStorage.setItem('stored_images', getCartData());
-})
-
-CartStore.on('load', () => {
-  CartStore.records.forEach(record => {
-    renderZipImage(record)
-  })
-})
-
-CartStore.on('record.create', (record) => {
-  console.log("HardCode")
-  
-})
-
-
-
-var savedImages = localStorage.getItem('stored_images');
-if (savedImages !== null) {
-
-  console.log(JSON.parse(savedImages))
-  CartStore.load(JSON.parse(savedImages));
-}
-
-
 ImagesStore.on('load', () => {
-  renderImages()
+  renderImages(ImagesStore.data)
 })
-ImagesStore.on('reload', () => renderImages())
+ImagesStore.on('reload', () => renderImages(ImagesStore.data))
 ImagesStore.on('clear', () => clearImageBin())
 
 searchButton.addEventListener('click', e => {
@@ -112,7 +76,7 @@ function renderImages (images) {
   imageBin.innerHTML=''
   let tasks = new NGN.Tasks()
 
-  ImagesStore.records.forEach(image => {
+  images.forEach(image => {
     tasks.add(`Rendering image ${image.id}`, next => {
       let id = `image_${image.id}`
 
@@ -129,8 +93,25 @@ function renderImages (images) {
               NGN.DOM.guaranteeDirectChild(imageBin, `#${id}`, () => {
                 let element = document.getElementById(id)
                 let zipAddButton = element.querySelector('.addToZipFileButton')
+
                 zipAddButton.addEventListener('click', () => {
-                  CartStore.add(image)
+
+
+
+                  imageZipListImageArray.push({
+                    id: image.id,
+                    thumbnail: image.urls.thumb,
+                    download_link: image.links.download +'?force=true'
+                  });
+                  var JSONReadyImages = JSON.stringify(imageZipListImageArray)
+                  zipImageList.insertAdjacentHTML('beforeend', `<hr><li id="zipImage_${image.id}" class="zipImageListItem"><img src=${image.urls.thumb}/>
+                    <button id="removeFromZipList_${image.id}" class="removeFromZipFileButton">Remove</button>
+                    <hr>
+                  </li>`);
+                  localStorage.setItem('stored_images', JSONReadyImages);
+                  savedImage()
+                  console.log(JSONReadyImages);
+                  console.log(imageZipListImageArray);
                 })
               })
             next()
@@ -146,35 +127,4 @@ function renderImages (images) {
 
 function savedImage(obj) {
   JSONReadyImages.obj = obj;
-}
-
-function renderZipImage(record){
-  console.log(record)
-    zipImageList.insertAdjacentHTML('beforeend', `<div id="cartZipImage_${record.id}"><hr><li id="zipImage_${record.id}" class="zipImageListItem"><img src=${record.urls.thumb}/>
-      <button id="removeFromZipList_${record.id}" class="removeFromZipFileButton" imageRecordID="${record.id}">Remove</button>
-      <hr>
-    </li></div>`);
-    NGN.DOM.guaranteeDirectChild(zipImageList, `#removeFromZipList_${record.id}`, (err, button) => {
-      console.log(button)
-      button.addEventListener('click', () => {
-        console.log('click done been clicked')
-        console.log(button.getAttribute('imageRecordID'))
-        var record = CartStore.find(button.getAttribute('imageRecordID'))
-        console.log(record)
-        CartStore.remove(record)
-      })
-    })
-}
-
-function unRenderZipImage(record) {
-  console.log(document.getElementById(`cartZipImage_${record.id}`))
-  NGN.DOM.destroy(document.getElementById(`cartZipImage_${record.id}`))
-}
-
-function getCartData() {
-  return JSON.stringify(CartStore.records.map(record => {
-    var data = record.data;
-    data.id = record.id;
-    return data;
-  }))
 }

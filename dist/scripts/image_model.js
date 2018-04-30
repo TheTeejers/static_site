@@ -126,6 +126,11 @@ const LinksModel = new NGN.DATA.Model({
       type: String,
       default: null
     },
+  },
+  virtuals: {
+    actual_download : function () {
+      return this.download + '?force=true'
+    }
   }
 })
 
@@ -225,7 +230,7 @@ const ExifModel = new NGN.DATA.Model({
 })
 
 const ImageModel = new NGN.DATA.Model({
-  autoid: true,
+  idAttribute: 'id',
   fields: {
     categories: {
       type: Array,
@@ -297,6 +302,10 @@ const ImageModel = new NGN.DATA.Model({
     },
     results: {
       type: Number,
+      default: null
+    },
+    photo_tags: {
+      type: Array,
       default: null
     }
   },
