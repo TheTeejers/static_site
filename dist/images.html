@@ -9,6 +9,7 @@
     <script src="//cdn.author.io/ngnx/1.7.13/complete.min.js"></script>
 
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/imageDisplayArea.css">
     <link rel="icon" type="image/png" sizes="192x192"  href="assets/favicons/android-icon-192x192.png">
     <title>Fenix Catalog</title>
   </head>
@@ -38,7 +39,7 @@
           <button value="hello" type="button" id = "unsplashButtonImages" name="unsplashButtonImages">Image Search</button>
         </form>
 
-        <form id="image-search-form">
+        <!-- <form id="image-search-form">
           <p>Get UnSplashes Curated Images</p>
           <p>Amount of images returned (max = 30)</p>
           <input  type="number" id="unsplash-curated-search-number" min=1 max=30 value=10 style='width: 5em' onkeypress="imageCuratedReturn(event)">
@@ -48,13 +49,14 @@
             <option>popular</option>
           </select>
           <button value="hello" type="button" id = "unsplashButtonCurated" name="unsplashButtonCurated">Curated Search</button>
-        </form>
+        </form> -->
         <div class="imagesSavedArea">
           <p>Items To Be Saved In .Zip File</p>
           <ul id="images-to-be-zipped">
 
           </ul>
-
+          <button id="downloadZipFileButton">Download .ZIP File</button>
+          <!-- <button id="clearAllZipButton">Clear .ZIP Cart</button> -->
         </div>
       </div>
     </div>

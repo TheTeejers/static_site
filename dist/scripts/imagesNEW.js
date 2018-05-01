@@ -16,16 +16,10 @@ const endpoints = {
 let endpoint =  searchInput.value ? endpoints.search : endpoints.random
 let imagesReturnedContainer = document.getElementsByClassName('imagesReturnedContainer');
 var zipImageList = document.getElementById('images-to-be-zipped');
-
+const downloadZipFileButton = document.getElementById('downloadZipFileButton');
 
 var imageZipListImageArray = [];
 var JSONReadyImages = JSON.parse(localStorage.JSONReadyImages || null) || {};
-
-console.log(localStorage)
-console.log(localStorage.length)
-console.log(imageZipListImageArray);
-// imageZipListImageArray.push(localStorage);
-console.log(imageZipListImageArray);
 
 const ImagesStore = new NGN.DATA.Store({
   model: ImageModel
@@ -56,13 +50,6 @@ CartStore.on('load', () => {
   })
 })
 
-CartStore.on('record.create', (record) => {
-  console.log("HardCode")
-  
-})
-
-
-
 var savedImages = localStorage.getItem('stored_images');
 if (savedImages !== null) {
 
@@ -70,12 +57,17 @@ if (savedImages !== null) {
   CartStore.load(JSON.parse(savedImages));
 }
 
-
 ImagesStore.on('load', () => {
   renderImages()
 })
-ImagesStore.on('reload', () => renderImages())
-ImagesStore.on('clear', () => clearImageBin())
+
+ImagesStore.on('reload', () => {
+  renderImages()
+})
+
+ImagesStore.on('clear', () => {
+  clearImageBin()
+})
 
 searchButton.addEventListener('click', e => {
   fetchImages(searchInput.value ? endpoints.search : endpoints.random, images => {
@@ -94,6 +86,30 @@ searchInput.addEventListener('keydown', e => {
       })
     }
 })
+
+
+
+var zip = new JSZip();
+// create a file
+zip.file("hello.txt", "Hello[p my)6cxsw2q");
+// oops, cat on keyboard. Fixing !
+zip.file("hello.txt", "Hello World\n");
+
+// create a file and a folder
+zip.file("nested/hello.txt", "Hello World\n");
+// same as
+zip.folder("nested").file("hello.txt", "Hello World\n");
+
+
+
+
+
+
+
+
+
+
+
 
 function clearImageBin() {
   imageBin.innerHTML = ''
@@ -148,27 +164,23 @@ function savedImage(obj) {
   JSONReadyImages.obj = obj;
 }
 
+// function to put images into the 'cart' and also adds the 'remove' button as well as giving it functionality
 function renderZipImage(record){
-  console.log(record)
-    zipImageList.insertAdjacentHTML('beforeend', `<div id="cartZipImage_${record.id}"><hr><li id="zipImage_${record.id}" class="zipImageListItem"><img src=${record.urls.thumb}/>
+    zipImageList.insertAdjacentHTML('beforeend', `<div id="allCart"><div id="cartZipImage_${record.id}"><hr><li id="zipImage_${record.id}" class="zipImageListItem"><img src=${record.urls.thumb}/>
       <button id="removeFromZipList_${record.id}" class="removeFromZipFileButton" imageRecordID="${record.id}">Remove</button>
       <hr>
-    </li></div>`);
+    </li></div></div>`);
     NGN.DOM.guaranteeDirectChild(zipImageList, `#removeFromZipList_${record.id}`, (err, button) => {
-      console.log(button)
       button.addEventListener('click', () => {
-        console.log('click done been clicked')
-        console.log(button.getAttribute('imageRecordID'))
         var record = CartStore.find(button.getAttribute('imageRecordID'))
-        console.log(record)
         CartStore.remove(record)
       })
     })
 }
 
 function unRenderZipImage(record) {
-  console.log(document.getElementById(`cartZipImage_${record.id}`))
-  NGN.DOM.destroy(document.getElementById(`cartZipImage_${record.id}`))
+  console.log(document.getElementById(`allCart`))
+  NGN.DOM.destroy(document.getElementById(`allCart`))
 }
 
 function getCartData() {
