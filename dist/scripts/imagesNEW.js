@@ -18,8 +18,8 @@ let imagesReturnedContainer = document.getElementsByClassName('imagesReturnedCon
 var zipImageList = document.getElementById('images-to-be-zipped');
 const downloadZipFileButton = document.getElementById('downloadZipFileButton');
 
-var imageZipListImageArray = [];
-var JSONReadyImages = JSON.parse(localStorage.JSONReadyImages || null) || {};
+var savedImages = localStorage.getItem('stored_images');
+var imagesInCart = JSON.parse(savedImages)
 
 const ImagesStore = new NGN.DATA.Store({
   model: ImageModel
@@ -28,13 +28,18 @@ const ImagesStore = new NGN.DATA.Store({
 const CartStore = new NGN.DATA.Store({
   model: ImageModel
 })
+// console.log(CartStore.records, "CartStore.data before");
+// console.log(CartStore.data);
+// console.log(imagesInCart, "images in cart");
+// console.log(CartStore.records, "CartStore.records  on click 1")
+// console.log(CartStore.data, "CartStore.data  on click 1")
 
 CartStore.on('record.create', (record) => {
-  console.log(record.data);
-  console.log(record.links.actual_download);
-  renderZipImage(record);
+  renderZipImage(record)
   localStorage.setItem('stored_images', getCartData());
 })
+
+// console.log(CartStore.data, "CartStore.data  on click 4")
 
 CartStore.on('record.delete', (record) => {
   console.log(record.data);
@@ -50,13 +55,15 @@ CartStore.on('load', () => {
   })
 })
 
-var savedImages = localStorage.getItem('stored_images');
 if (savedImages !== null) {
+  // console.log(JSON.parse(savedImages), "JSON.parse(savedImages)")
+  console.log(imagesInCart, "imagesInCart")
+  // console.log(CartStore.data)
 
-  console.log(JSON.parse(savedImages))
   CartStore.load(JSON.parse(savedImages));
+  // console.log(CartStore.data)
 }
-
+// console.log(CartStore.records[1].links.download, "CartStore.data before");
 ImagesStore.on('load', () => {
   renderImages()
 })
@@ -87,30 +94,6 @@ searchInput.addEventListener('keydown', e => {
     }
 })
 
-
-
-var zip = new JSZip();
-// create a file
-zip.file("hello.txt", "Hello[p my)6cxsw2q");
-// oops, cat on keyboard. Fixing !
-zip.file("hello.txt", "Hello World\n");
-
-// create a file and a folder
-zip.file("nested/hello.txt", "Hello World\n");
-// same as
-zip.folder("nested").file("hello.txt", "Hello World\n");
-
-
-
-
-
-
-
-
-
-
-
-
 function clearImageBin() {
   imageBin.innerHTML = ''
 }
@@ -139,14 +122,35 @@ function renderImages (images) {
               profileName: image.user.username,
               imageID: image.id,
               imageDescription: image.description,
+              imageDownload: image.links.download
           }, template => {
 
               imageBin.insertAdjacentHTML('beforeend', template)
               NGN.DOM.guaranteeDirectChild(imageBin, `#${id}`, () => {
                 let element = document.getElementById(id)
                 let zipAddButton = element.querySelector('.addToZipFileButton')
+                // for (var i = 0; i < CartStore.data.length; i++) {
+                //   console.log(CartStore.data[i].links.download)
+                //
+                // }
                 zipAddButton.addEventListener('click', () => {
+                  // console.log(image.links.download)
+                  // if (CartStore.data[i].links.download = image.links.download) {
+                  //   console.log('worked')
+                  // }
                   CartStore.add(image)
+
+                  // console.log(imagesInCart.length, "imagesInCart before")
+                  // console.log(CartStore.data.length, "CartStore.data before");
+                  // console.log(CartStore.data, "CartStore.data before");
+                  // console.log(CartStore.data[1].links.download, "CartStore.data before")
+                  // console.log(image.links.download, "CartStore.data before 1111")
+                  //
+                  // console.log(imagesInCart.length, "imagesInCart after")
+                  // console.log(CartStore.data, "CartStore.data after");
+                  // console.log(CartStore.records.length, "CartStore.data after")
+                  // console.log(CartStore.data.length, "CartStore.data before");
+
                 })
               })
             next()
@@ -160,27 +164,36 @@ function renderImages (images) {
   tasks.run(true)
 }
 
-function savedImage(obj) {
-  JSONReadyImages.obj = obj;
-}
-
 // function to put images into the 'cart' and also adds the 'remove' button as well as giving it functionality
 function renderZipImage(record){
-    zipImageList.insertAdjacentHTML('beforeend', `<div id="allCart"><div id="cartZipImage_${record.id}"><hr><li id="zipImage_${record.id}" class="zipImageListItem"><img src=${record.urls.thumb}/>
-      <button id="removeFromZipList_${record.id}" class="removeFromZipFileButton" imageRecordID="${record.id}">Remove</button>
-      <hr>
-    </li></div></div>`);
-    NGN.DOM.guaranteeDirectChild(zipImageList, `#removeFromZipList_${record.id}`, (err, button) => {
-      button.addEventListener('click', () => {
-        var record = CartStore.find(button.getAttribute('imageRecordID'))
-        CartStore.remove(record)
-      })
+  // console.log(imagesInCart)
+  // console.log(ImagesStore)
+  // console.log(record.links.download)
+  // for (var i = 0; i < imagesInCart.length; i++){
+  //   console.log(imagesInCart[i].id)
+  //   if (record.links.download === imagesInCart[i].links.download){
+  //     console.log('nope')
+  //   } else {
+  //     console.log('yup')
+  //   }
+  // }
+
+  zipImageList.insertAdjacentHTML('beforeend', `<div id="allCart"><div id="cartZipImage_${record.id}"><hr><li id="zipImage_${record.id}" class="zipImageListItem"><img src=${record.urls.thumb}/>
+    <button id="removeFromZipList_${record.id}" class="removeFromZipFileButton" imageRecordID="${record.id}">Remove</button>
+    <hr>
+  </li></div></div>`);
+  NGN.DOM.guaranteeDirectChild(zipImageList, `#removeFromZipList_${record.id}`, (err, button) => {
+    button.addEventListener('click', () => {
+      var record = CartStore.find(button.getAttribute('imageRecordID'))
+      CartStore.remove(record)
     })
+  })
+
 }
 
 function unRenderZipImage(record) {
-  console.log(document.getElementById(`allCart`))
-  NGN.DOM.destroy(document.getElementById(`allCart`))
+  console.log(document.getElementById(`cartZipImage_${record.id}`))
+  NGN.DOM.destroy(document.getElementById(`cartZipImage_${record.id}`))
 }
 
 function getCartData() {
@@ -189,4 +202,40 @@ function getCartData() {
     data.id = record.id;
     return data;
   }))
+}
+
+// console.log(CartStore.records)
+
+var imgLinks=CartStore.records;
+
+function zipCartFiles() {
+  console.log(imgLinks.length)
+  // var zip = new JSZip();
+  // zip.file("Hello.txt", "Hello World\n");
+  // var img = zip.folder("images");
+  // img.file("new.jpeg", src='https://unsplash.com/photos/LJAU2ouA8tk/download?force=true');
+  // zip.generateAsync({type:"blob"})
+  // .then(function(content) {
+  //     saveAs(content, "example.zip");
+  // });
+
+  var zip=new JSZip();
+  for(var i=0; i<imgLinks.length; i++)
+    {
+    console.log(imgLinks[i].links.download)
+    JSZipUtils.getBinaryContent(imgLinks[i].links.download, function (err, data) {
+        if(err) {
+          alert("Problem happened when download img: " + imgLinks[i].links.download);
+          console.log("Problem happened when download img: " + imgLinks[i].links.download);
+          deferred.resolve(zip); // ignore this error: just logging
+          // deferred.reject(zip); // or we may fail the download
+        } else {
+          console.log('this far')
+          zip.file("picture"+i+".jpg", data, {binary:true});
+          // deferred.resolve(zip);
+        }
+     });
+    }
+  var content = zip.generateAsync({type:"blob"});
+  saveAs(content, "downloadImages.zip");
 }

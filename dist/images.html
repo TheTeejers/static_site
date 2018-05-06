@@ -55,7 +55,7 @@
           <ul id="images-to-be-zipped">
 
           </ul>
-          <button id="downloadZipFileButton">Download .ZIP File</button>
+          <button id="downloadZipFileButton" onclick="zipCartFiles()">Download .ZIP File</button>
           <!-- <button id="clearAllZipButton">Clear .ZIP Cart</button> -->
         </div>
       </div>
@@ -76,6 +76,8 @@
     </footer>
 
 
+    <script src="scripts/FileSaver.js"></script>
+    <script src="scripts/jszip-utils.js"></script>
     <script src="scripts/jszip.min.js"></script>
     <script src="scripts/image_model.js"></script>
     <script src="scripts/imagesNEW.js"></script>

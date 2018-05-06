@@ -73,7 +73,9 @@ button {
   overflow-wrap: break-word;
 }
 
-
+#images-to-be-zipped {
+  border: 2px solid black;
+}
 
 #image-search-form {
   border: 1px solid black;
