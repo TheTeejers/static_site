@@ -86,6 +86,7 @@ var saveAs = saveAs
 				, object_url
 				, target_view
 				, get_object_url = function() {
+           console.log(blob)
 					var object_url = get_URL().createObjectURL(blob);
 					deletion_queue.push(object_url);
 					return object_url;

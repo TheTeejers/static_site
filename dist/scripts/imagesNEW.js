@@ -178,10 +178,22 @@ function renderZipImage(record){
   //   }
   // }
 
-  zipImageList.insertAdjacentHTML('beforeend', `<div id="allCart"><div id="cartZipImage_${record.id}"><hr><li id="zipImage_${record.id}" class="zipImageListItem"><img src=${record.urls.thumb}/>
-    <button id="removeFromZipList_${record.id}" class="removeFromZipFileButton" imageRecordID="${record.id}">Remove</button>
-    <hr>
-  </li></div></div>`);
+  zipImageList.insertAdjacentHTML('beforeend',
+  `<div id="allCart">
+    <div id="cartZipImage_${record.id}">
+      <hr>
+      <li id="zipImage_${record.id}" class="zipImageListItem">
+        <div class="zipImage">
+          <img class="zipImageListDisplay" src=${record.urls.thumb}/>
+        </div>
+        <div class="zipButtonDiv">
+          <button id="removeFromZipList_${record.id}"     class="removeFromZipFileButton" imageRecordID="${record.id}">Remove</button>
+        </div>
+
+      </li>
+      <hr>
+    </div>
+  </div>`);
   NGN.DOM.guaranteeDirectChild(zipImageList, `#removeFromZipList_${record.id}`, (err, button) => {
     button.addEventListener('click', () => {
       var record = CartStore.find(button.getAttribute('imageRecordID'))
@@ -223,12 +235,12 @@ function zipCartFiles() {
   for(var i=0; i<imgLinks.length; i++)
     {
     console.log(imgLinks[i].links.download)
+
     JSZipUtils.getBinaryContent(imgLinks[i].links.download, function (err, data) {
         if(err) {
           alert("Problem happened when download img: " + imgLinks[i].links.download);
           console.log("Problem happened when download img: " + imgLinks[i].links.download);
-          deferred.resolve(zip); // ignore this error: just logging
-          // deferred.reject(zip); // or we may fail the download
+          // deferred.resolve(zip);
         } else {
           console.log('this far')
           zip.file("picture"+i+".jpg", data, {binary:true});
@@ -238,4 +250,6 @@ function zipCartFiles() {
     }
   var content = zip.generateAsync({type:"blob"});
   saveAs(content, "downloadImages.zip");
+
+
 }
