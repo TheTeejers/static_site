@@ -106,7 +106,7 @@ button {
 .image-search-box {
   /* position:fixed; */
   padding-top: 3em;
-  height: 20em;
+  height: auto;
   overflow: hidden;
 }
 

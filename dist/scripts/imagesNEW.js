@@ -17,6 +17,7 @@ let endpoint =  searchInput.value ? endpoints.search : endpoints.random
 let imagesReturnedContainer = document.getElementsByClassName('imagesReturnedContainer');
 var zipImageList = document.getElementById('images-to-be-zipped');
 const downloadZipFileButton = document.getElementById('downloadZipFileButton');
+const zipFileInputName = document.getElementById('zip-file-name-input');
 
 var savedImages = localStorage.getItem('stored_images');
 var imagesInCart = JSON.parse(savedImages)
@@ -28,18 +29,13 @@ const ImagesStore = new NGN.DATA.Store({
 const CartStore = new NGN.DATA.Store({
   model: ImageModel
 })
-// console.log(CartStore.records, "CartStore.data before");
-// console.log(CartStore.data);
-// console.log(imagesInCart, "images in cart");
-// console.log(CartStore.records, "CartStore.records  on click 1")
-// console.log(CartStore.data, "CartStore.data  on click 1")
 
 CartStore.on('record.create', (record) => {
   renderZipImage(record)
   localStorage.setItem('stored_images', getCartData());
 })
 
-// console.log(CartStore.data, "CartStore.data  on click 4")
+
 
 CartStore.on('record.delete', (record) => {
   console.log(record.data);
@@ -56,14 +52,14 @@ CartStore.on('load', () => {
 })
 
 if (savedImages !== null) {
-  // console.log(JSON.parse(savedImages), "JSON.parse(savedImages)")
+
   console.log(imagesInCart, "imagesInCart")
-  // console.log(CartStore.data)
+
 
   CartStore.load(JSON.parse(savedImages));
-  // console.log(CartStore.data)
+
 }
-// console.log(CartStore.records[1].links.download, "CartStore.data before");
+
 ImagesStore.on('load', () => {
   renderImages()
 })
@@ -129,27 +125,11 @@ function renderImages (images) {
               NGN.DOM.guaranteeDirectChild(imageBin, `#${id}`, () => {
                 let element = document.getElementById(id)
                 let zipAddButton = element.querySelector('.addToZipFileButton')
-                // for (var i = 0; i < CartStore.data.length; i++) {
-                //   console.log(CartStore.data[i].links.download)
-                //
-                // }
+
                 zipAddButton.addEventListener('click', () => {
-                  // console.log(image.links.download)
-                  // if (CartStore.data[i].links.download = image.links.download) {
-                  //   console.log('worked')
-                  // }
+
                   CartStore.add(image)
 
-                  // console.log(imagesInCart.length, "imagesInCart before")
-                  // console.log(CartStore.data.length, "CartStore.data before");
-                  // console.log(CartStore.data, "CartStore.data before");
-                  // console.log(CartStore.data[1].links.download, "CartStore.data before")
-                  // console.log(image.links.download, "CartStore.data before 1111")
-                  //
-                  // console.log(imagesInCart.length, "imagesInCart after")
-                  // console.log(CartStore.data, "CartStore.data after");
-                  // console.log(CartStore.records.length, "CartStore.data after")
-                  // console.log(CartStore.data.length, "CartStore.data before");
 
                 })
               })
@@ -166,17 +146,7 @@ function renderImages (images) {
 
 // function to put images into the 'cart' and also adds the 'remove' button as well as giving it functionality
 function renderZipImage(record){
-  // console.log(imagesInCart)
-  // console.log(ImagesStore)
-  // console.log(record.links.download)
-  // for (var i = 0; i < imagesInCart.length; i++){
-  //   console.log(imagesInCart[i].id)
-  //   if (record.links.download === imagesInCart[i].links.download){
-  //     console.log('nope')
-  //   } else {
-  //     console.log('yup')
-  //   }
-  // }
+
 
   zipImageList.insertAdjacentHTML('beforeend',
   `<div id="allCart">
@@ -216,40 +186,48 @@ function getCartData() {
   }))
 }
 
-// console.log(CartStore.records)
+console.log(zipFileInputName.value)
+if (zipFileInputName.value === ''){
+  console.log("it is null")
+} else {
+  console.log("not null")
+}
 
 var imgLinks=CartStore.records;
 
 function zipCartFiles() {
   console.log(imgLinks.length)
-  // var zip = new JSZip();
-  // zip.file("Hello.txt", "Hello World\n");
-  // var img = zip.folder("images");
-  // img.file("new.jpeg", src='https://unsplash.com/photos/LJAU2ouA8tk/download?force=true');
-  // zip.generateAsync({type:"blob"})
-  // .then(function(content) {
-  //     saveAs(content, "example.zip");
-  // });
-
-  var zip=new JSZip();
-  for(var i=0; i<imgLinks.length; i++)
-    {
-    console.log(imgLinks[i].links.download)
-
-    JSZipUtils.getBinaryContent(imgLinks[i].links.download, function (err, data) {
+  var zip = new JSZip();
+  var downloads = new NGN.Tasks();
+  imgLinks.forEach(function(img){
+    downloads.add(next => {
+      console.log(img.links.download + '?force=true');
+      JSZipUtils.getBinaryContent(img.links.download + '?force=true', function (err, data) {
+        console.log(data)
         if(err) {
-          alert("Problem happened when download img: " + imgLinks[i].links.download);
-          console.log("Problem happened when download img: " + imgLinks[i].links.download);
-          // deferred.resolve(zip);
-        } else {
-          console.log('this far')
-          zip.file("picture"+i+".jpg", data, {binary:true});
-          // deferred.resolve(zip);
+           throw err;
         }
-     });
-    }
-  var content = zip.generateAsync({type:"blob"});
-  saveAs(content, "downloadImages.zip");
+      zip.file(img.id +'.jpg', data, {binary:true});
+      next()
+      })
+    })
+  })
 
+  console.log(imgLinks.length, "before loop")
+  console.log(imgLinks);
+  downloads.on('complete', function() {
+    zip.generateAsync({type:'blob'}).then(function(content) {
+      if (zipFileInputName.value === ''){
+        var fileName = 'HackathonImages.zip'
+        console.log("it is null")
+      } else {
+        var fileName = 'HackathonImages_' + zipFileInputName.value.split(" ").join("_") + '.zip'
+        console.log("not null")
+      }
+      saveAs(content, fileName);
+
+    });
+  });
+  downloads.run(true);
 
 }
