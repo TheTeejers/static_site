@@ -1,4 +1,4 @@
-const ref = new Firebase("https://fenix-static-comments.firebaseio.com/");
+const ref = new Firebase("https://fenix-static-comments-tj.firebaseio.com");
 const form = document.querySelector("form");
 
 form.addEventListener("submit", postComment);

@@ -1,11 +1,11 @@
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyBFbvIphQ_dyX8kbtd-GT0f8s9UY_q7A8s",
-  authDomain: "fenix-catalog.firebaseapp.com",
-  databaseURL: "https://fenix-catalog.firebaseio.com",
-  projectId: "fenix-catalog",
-  storageBucket: "fenix-catalog.appspot.com",
-  messagingSenderId: "900809881491"
+  apiKey: "AIzaSyCgJPuvNVsyuxureQzwKWKqvY1-ungo504",
+  authDomain: "fenix-catalog-tj.firebaseapp.com",
+  databaseURL: "https://fenix-catalog-tj.firebaseio.com",
+  projectId: "fenix-catalog-tj",
+  storageBucket: "fenix-catalog-tj.appspot.com",
+  messagingSenderId: "1077431263544"
 };
 firebase.initializeApp(config);
 var firestore = firebase.firestore();
