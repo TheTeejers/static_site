@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fenix Static Site</title>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+    <script src="//cdn.author.io/ngn/1.3.15/legacy.complete.min.js"></script>
+    <script src="//cdn.author.io/ngnx/1.7.13/complete.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/favicons/android-icon-192x192.png">
+    <title>Fenix Catalog</title>
+  </head>
+  <body>
+    <header>
+
+      <nav class="navbar">
+        <a class='nav-a'href="https://preview.fenixwebserver.com/" target="blank"><img class='nav-img'src="assets/favicons/favicon-16x16@2x.png" alt="Fenix Logo"></a>
+        <a class='nav-a'href='/index.html#'>Title</a>
+        <a class='nav-a'href='/index.html#import-own'>Import Your Own</a>
+        <a class='nav-a'href='/index.html#comment-section'>Comments</a>
+        <a class='nav-a'href='/catalog.html'>Catalog Page</a>
+        <a class='nav-a'href='/images.html'>Images Page</a>
+      </nav>
+    </header>
+
+    <div class="project form section">
+      <p>Fenix Import data input</p>
+      <form>
+        <input type="text" name="projectName" placeholder="Fenix Project Name">
+        <input type="text" name="projectAuthor" placeholder="Project Author">
+        <input type="text" name="projectServerName" placeholder="Fenix Server Name">
+        <input type="text" name="projectCallbackURL" placeholder="URL">
+      </form>
+      <button name="addProject">Add Project</button>
+
+      <pre><code class="json"></code></pre>
+      <button name='undoButton' class="hidden">Undo</button>
+      <button name='loadProjects'>Load</button>
+      <div id="catalogItems">
+<!-- <a href="https://goo.gl/dVkNEY"><img src="https://cdn.author.io/fenix/smallbadge.svg" alt="Import to Fenix"/></a> -->
+      </div>
+
+    </div>
+    <div class="get-fenix-section">
+      <div class="get-fenix">
+        <h3>New To Fenix?</h3><h3>Download the app <a class="get-fenix-link" target="blank" href="https://preview.fenixwebserver.com/">HERE!</a> </h3>
+      </div>
+    </div>
+
+    <div id="foot">
+      <p>Fenix Web Server is an Author.io product by Ecor Ventures.</p>
+      <p>Copyright © 2017 <a href="http://ecorventures.com/">Ecor Ventures LLC.</a>  All rights reserved.</p>
+    </div>
+      <script src="scripts/catalog.js"></script>
+  </body>
+</html>

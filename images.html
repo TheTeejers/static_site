@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fenix Static Site</title>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
+    <script src="//cdn.author.io/ngn/1.3.15/legacy.complete.min.js"></script>
+    <script src="//cdn.author.io/ngnx/1.7.13/complete.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/imageDisplayArea.css">
+    <link rel="stylesheet" href="assets/css/zipImageArea.css">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/favicons/android-icon-192x192.png">
+    <title>Fenix Catalog</title>
+  </head>
+  <body>
+    <header>
+
+      <nav class="navbar">
+        <a class='nav-a'href="https://preview.fenixwebserver.com/" target="blank"><img class='nav-img'src="assets/favicons/favicon-16x16@2x.png" alt="Fenix Logo"></a>
+        <a class='nav-a'href='/index.html#'>Title</a>
+        <a class='nav-a'href='/index.html#import-own'>Import Your Own</a>
+        <a class='nav-a'href='/index.html#comment-section'>Comments</a>
+        <a class='nav-a'href='/catalog.html'>Catalog Page</a>
+        <a class='nav-a'href='/images.html'>Images Page</a>
+      </nav>
+    </header>
+
+    <div class="image-search-box">
+      <p>Search the UnSplash Image Database</p>
+      <div class="forms-search">
+
+        <form id="image-search-form">
+          <p>Search UnSplash for high quality images</p>
+          <input type="search" id="unsplash-images-search-input" placeholder="Search UnSplash Images" >
+          <p>Amount of images returned (max = 30)</p>
+          <input type="number" id="unsplash-images-search-number" min=1 max=30 value=10 style='width: 5em' onkeypress="imageSearchReturn(event)">
+
+          <button value="hello" type="button" id = "unsplashButtonImages" name="unsplashButtonImages">Image Search</button>
+        </form>
+        <div class="imagesSavedArea">
+          <p>Items To Be Saved In .Zip File</p>
+          <ul id="images-to-be-zipped">
+          </ul>
+          <p>Name your .zip file: <input type="text" id="zip-file-name-input" placeholder="Optional" value=''></p>
+          <button id="downloadZipFileButton" onclick="zipCartFiles()">Download .ZIP File</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="images-posting-section">
+      <div id="imageDisplayArea"></div>
+
+      <div id="imageLinks"></div>
+
+    <div id="imageSection">
+      <div class="postTitles posts"></div>
+    </div>
+
+
+    <footer id="foot">
+      <p>Fenix Web Server is an Author.io product by Ecor Ventures. Copyright © 2017 <a href="http://ecorventures.com/">Ecor Ventures LLC.</a>  All rights reserved.</p>
+    </footer>
+
+
+    <script src="scripts/FileSaver.js"></script>
+    <script src="scripts/jszip-utils.js"></script>
+    <script src="scripts/jszip.min.js"></script>
+    <script src="scripts/image_model.js"></script>
+    <script src="scripts/imagesNEW.js"></script>
+    <!-- <script src="scripts/imagesOLD.js"></script> -->
+    <!-- <script src="scripts/images.js"></script> -->
+
+
+  </body>
+</html>
