@@ -9,6 +9,8 @@ var config = {
 };
 firebase.initializeApp(config);
 var firestore = firebase.firestore();
+const settings = {/* your settings... */ timestampsInSnapshots: true};
+firestore.settings(settings);
 const docRef = firestore.collection('fenix-projects');
 
 // Define a project
