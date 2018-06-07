@@ -4,11 +4,7 @@
   "main": "images.js",
   "description": "A JavaScript-based systems and software authoring library.",
   "scripts": {
-    "test": "gulp test",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "gulp test"
   },
   "dependencies": {
     "jszip": "^3.1.5",
