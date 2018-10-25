@@ -1,4 +1,4 @@
-const YOUR_ACCESS_KEY = 'ee149b09b89a06de5d016c7bf0ead7971a1c667c2969a2535f9065b64ced909f';
+const YOUR_ACCESS_KEY = 'a108313121159de83e4a86cfacf4517e7481c3efa994f253af5f5131575fbc30';
 var unsplashImage = document.getElementById('image');
 let numberPerPage = document.getElementById('unsplash-images-search-number');
 const searchInput = document.getElementById('unsplash-images-search-input');
