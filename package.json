@@ -5,9 +5,9 @@
   "description": "A JavaScript-based systems and software authoring library.",
   "homepage": "https://theteejers.github.io/static_site",
   "scripts": {
-    "test": "react-scripts test --env=jsdom",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
